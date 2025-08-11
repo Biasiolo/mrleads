@@ -1,7 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
+import logoHero from "../assets/logo.png";
+import bgHero from "../assets/bg.png";
+import { motion } from "framer-motion";
+import logoHero2 from "../assets/logo-header.png";
 
-// FORM_ENDPOINT - Configure com sua API de captura de leads
-const FORM_ENDPOINT = "https://api.example.com/leads"; // Substitua pela sua URL
+
+
 
 export default function App() {
   return (
@@ -37,8 +41,15 @@ function Header() {
     }`}>
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <LogoMark />
-          <span className="font-bold text-xl tracking-tight">VOIA Agency</span>
+<motion.img
+            src={logoHero2}
+            alt="Vire o Jogo com a VOIA"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-40 md:max-w-40"
+          />
+
         </div>
         <nav className="hidden lg:flex items-center gap-8 text-sm font-medium">
           <a href="#como-funciona" className="text-zinc-300 hover:text-white transition-colors">Como funciona</a>
@@ -58,81 +69,51 @@ function Header() {
   );
 }
 
-function LogoMark() {
-  return (
-    <div className="relative">
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="2" y="2" width="20" height="20" rx="6" fill="#F97316"/>
-        <path d="M7 14l3.2-3.2 2.4 2.4L17 9" stroke="#0a0a0a" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    </div>
-  );
-}
+
 
 function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-zinc-900/50 via-zinc-950 to-zinc-950" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-500/3 rounded-full blur-3xl" />
-      </div>
-
-      <div className="relative max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center px-4 py-24">
-        <div className="space-y-8">
-          <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium">
-              <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" />
-              Diagnóstico gratuito disponível
-            </div>
-            
-            <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
-              Vire o Jogo com a{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">
-                VOIA
-              </span>
-            </h1>
-            
-            <p className="text-xl text-zinc-300 leading-relaxed max-w-2xl">
-              Estratégia digital integrada que transforma resultados: tráfego pago, 
-              conteúdo estratégico e funis de alta conversão trabalhando em sinergia 
-              para acelerar o crescimento do seu negócio.
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-zinc-900/50 border border-zinc-800">
-                <CheckIcon />
-                <span className="text-zinc-300">ROI comprovado</span>
-              </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-zinc-900/50 border border-zinc-800">
-                <CheckIcon />
-                <span className="text-zinc-300">Leads qualificados</span>
-              </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-zinc-900/50 border border-zinc-800">
-                <CheckIcon />
-                <span className="text-zinc-300">Crescimento previsível</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4">
-            <a href="#form" className="group px-8 py-4 rounded-full bg-orange-500 text-zinc-950 font-semibold hover:bg-orange-400 transition-all duration-200 shadow-lg hover:shadow-orange-500/25 text-center">
-              <span className="flex items-center justify-center gap-2">
-                Quero meu diagnóstico gratuito
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </span>
+    <section
+      className="relative overflow-hidden bg-cover bg-center"
+      style={{ backgroundImage: `url(${bgHero})` }}
+    >
+      <div className="absolute inset-0 bg-black/50" /> {/* overlay para contraste */}
+      <div className="relative max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center px-4 py-16 md:py-24">
+        <div>
+          <motion.img
+            src={logoHero}
+            alt="Vire o Jogo com a VOIA"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-xs md:max-w-sm"
+          />
+          <p className="mt-4 text-zinc-300 text-lg max-w-prose">
+            Estratégia integrada para transformar resultados: tráfego pago, conteúdo, design e funis de conversão trabalhando juntos para mudar o placar do seu negócio em São José dos Campos.
+          </p>
+          <ul className="mt-6 space-y-2 text-sm text-zinc-300">
+            <li>• Diagnóstico gratuito e plano personalizado</li>
+            <li>• Campanhas locais com segmentação precisa</li>
+            <li>• Previsibilidade: leads constantes e CAC otimizado</li>
+          </ul>
+          <div className="mt-8 flex gap-3">
+            <a
+              href="#form"
+              className="px-5 py-3 rounded-2xl bg-orange-500 text-zinc-950 font-semibold hover:bg-orange-400 transition"
+            >
+              Agendar diagnóstico
             </a>
-            <a href="#provas" className="px-8 py-4 rounded-full border border-zinc-700 hover:border-zinc-500 transition-all duration-200 text-center hover:bg-zinc-900/50">
-              Ver casos de sucesso
+            <a
+              href="#provas"
+              className="px-5 py-3 rounded-2xl border border-zinc-700 hover:border-zinc-500 transition"
+            >
+              Ver provas
             </a>
           </div>
         </div>
-
         <div className="relative">
-          <div className="relative z-10">
+
+          <div className="mt-6">
             <LeadForm />
           </div>
         </div>
@@ -254,25 +235,21 @@ function Problem() {
 function Solution() {
   const pillars = [
     {
-
       title: "Estratégia & Estrutura",
       desc: "Diagnóstico completo, posicionamento estratégico e criação de assets digitais otimizados para conversão",
       features: ["Análise competitiva", "Persona & ICP", "Brand guidelines", "Website otimizado"]
     },
     {
-
       title: "Atração & Tráfego",
       desc: "Campanhas segmentadas e conteúdo estratégico para atrair seu cliente ideal no momento certo",
       features: ["Google Ads", "Meta Ads", "SEO", "Content Marketing"]
     },
     {
-
       title: "Conversão & Vendas", 
       desc: "Funis otimizados, landing pages de alta performance e automações que transformam visitantes em clientes",
       features: ["Landing pages", "Email marketing", "Automações", "CRM integrado"]
     },
     {
-
       title: "Crescimento & Escala",
       desc: "Análise de dados, otimização contínua e estratégias de retenção para crescimento sustentável",
       features: ["Analytics avançado", "A/B Testing", "Remarketing", "Customer Success"]
@@ -280,47 +257,55 @@ function Solution() {
   ];
 
   return (
-    <section id="como-funciona" className="max-w-7xl mx-auto px-4 py-24">
-      <div className="text-center mb-16">
-        <div className="inline-block px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium mb-4">
-          Nossa metodologia
+    <section
+      id="como-funciona"
+      className="relative bg-cover bg-center"
+      style={{ backgroundImage: `url(${bgHero})` }}
+    >
+      {/* Overlay para contraste */}
+      <div className="absolute inset-0 bg-black/50" />
+
+      <div className="relative max-w-7xl mx-auto px-4 py-24">
+        <div className="text-center mb-16">
+          <div className="inline-block px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium mb-4">
+            Nossa metodologia
+          </div>
+          <h2 className="text-4xl lg:text-5xl font-bold leading-tight mb-6">
+            Como transformamos seu negócio digital
+          </h2>
+          <p className="text-xl text-zinc-300 max-w-3xl mx-auto">
+            Metodologia proprietária com 4 pilares integrados para resultados mensuráveis e crescimento previsível
+          </p>
         </div>
-        <h2 className="text-4xl lg:text-5xl font-bold leading-tight mb-6">
-          Como transformamos seu negócio digital
-        </h2>
-        <p className="text-xl text-zinc-300 max-w-3xl mx-auto">
-          Metodologia proprietária com 4 pilares integrados para resultados mensuráveis e crescimento previsível
-        </p>
-      </div>
 
-      <div className="grid lg:grid-cols-2 gap-8">
-        {pillars.map((pillar, index) => (
-          <div key={index} className="group relative">
-            <div className="h-full p-8 rounded-3xl bg-zinc-900/50 border border-zinc-800 hover:border-orange-500/30 transition-all duration-300">
-              <div className="flex items-start gap-4 mb-6">
-
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center text-orange-400 font-bold text-sm">
-                      {index + 1}
+        <div className="grid lg:grid-cols-2 gap-8">
+          {pillars.map((pillar, index) => (
+            <div key={index} className="group relative">
+              <div className="h-full p-8 rounded-3xl bg-zinc-900/50 border border-zinc-800 hover:border-orange-500/30 transition-all duration-300">
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center text-orange-400 font-bold text-sm">
+                        {index + 1}
+                      </div>
+                      <h3 className="text-xl font-bold text-white">{pillar.title}</h3>
                     </div>
-                    <h3 className="text-xl font-bold text-white">{pillar.title}</h3>
+                    <p className="text-zinc-300 mb-6">{pillar.desc}</p>
                   </div>
-                  <p className="text-zinc-300 mb-6">{pillar.desc}</p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  {pillar.features.map((feature, idx) => (
+                    <div key={idx} className="flex items-center gap-2 text-sm text-zinc-400">
+                      <div className="w-1.5 h-1.5 rounded-full bg-orange-500" />
+                      {feature}
+                    </div>
+                  ))}
                 </div>
               </div>
-              
-              <div className="grid grid-cols-2 gap-3">
-                {pillar.features.map((feature, idx) => (
-                  <div key={idx} className="flex items-center gap-2 text-sm text-zinc-400">
-                    <div className="w-1.5 h-1.5 rounded-full bg-orange-500" />
-                    {feature}
-                  </div>
-                ))}
-              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -692,7 +677,7 @@ function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
-              <LogoMark />
+
               <span className="font-bold text-xl tracking-tight">VOIA Agency</span>
             </div>
             <p className="text-zinc-300 mb-6 max-w-md">
