@@ -3,9 +3,46 @@ import logoHero from "../assets/logo.png";
 import bgHero from "../assets/bg.png";
 import { motion } from "framer-motion";
 import logoHero2 from "../assets/logo-header.png";
+import bgHero2 from "../assets/bg2.png";
 
 
+// ===== WhatsApp – Config & Helpers =====
+const WHATSAPP_PHONE = "5512988081002"; // +55 12 98808-1002
 
+function waUrlFromMessage(message) {
+  return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+}
+
+function formatLeadMessage(payload) {
+  // payload: { nome, empresa, email, whatsapp, segmento, faturamento, website, desafio, utm_*, origem }
+  return [
+    "Olá, equipe VOIA! Quero agendar meu *Diagnóstico Gratuito*. Seguem meus dados:",
+    "",
+    `*Nome:* ${payload.nome}`,
+    `*Empresa:* ${payload.empresa || "-"}`,
+    `*E-mail:* ${payload.email}`,
+    `*WhatsApp:* ${payload.whatsapp}`,
+    `*Segmento:* ${payload.segmento || "-"}`,
+    `*Faturamento:* ${payload.faturamento || "-"}`,
+    `*Website:* ${payload.website || "-"}`,
+    `*Desafio:* ${payload.desafio || "-"}`,
+    "",
+    `*UTM Source:* ${payload.utm_source || "-"} | *Medium:* ${payload.utm_medium || "-"} | *Campaign:* ${payload.utm_campaign || "-"}`,
+    `*Term:* ${payload.utm_term || "-"} | *Content:* ${payload.utm_content || "-"}`,
+    "",
+    `*Origem:* ${payload.origem || "LP Vire o Jogo"}`,
+    `*Quando:* ${new Date().toLocaleString("pt-BR")}`,
+  ].join("\n");
+}
+
+function formatQuickMessage(origin, utm = {}) {
+  return [
+    "Olá, equipe VOIA! Quero meu *Diagnóstico Gratuito*.",
+    "",
+    `*Origem do clique:* ${origin}`,
+    `*UTM Source:* ${utm.utm_source || "-"} | *Medium:* ${utm.utm_medium || "-"} | *Campaign:* ${utm.utm_campaign || "-"}`,
+  ].join("\n");
+}
 
 export default function App() {
   return (
@@ -32,6 +69,7 @@ function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  const utmHeader = useUTM();
 
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -55,9 +93,14 @@ function Header() {
           <a href="#como-funciona" className="text-zinc-300 hover:text-white transition-colors">Como funciona</a>
           <a href="#provas" className="text-zinc-300 hover:text-white transition-colors">Casos de sucesso</a>
           <a href="#faq" className="text-zinc-300 hover:text-white transition-colors">FAQ</a>
-          <a href="#form" className="px-6 py-2.5 rounded-full bg-orange-500 text-zinc-950 font-semibold hover:bg-orange-400 transition-all duration-200 shadow-lg hover:shadow-orange-500/25">
-            Diagnóstico Gratuito
-          </a>
+          <a
+  href={waUrlFromMessage(formatQuickMessage("Header", utmHeader))}
+  target="_blank"
+  rel="noopener"
+  className="px-6 py-2.5 rounded-full bg-orange-500 text-zinc-950 font-semibold hover:bg-orange-400 transition-all duration-200 shadow-lg hover:shadow-orange-500/25"
+>
+  Diagnóstico Gratuito
+</a>
         </nav>
         <button className="lg:hidden p-2">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -72,7 +115,9 @@ function Header() {
 
 
 function Hero() {
+    const utmHero = useUTM();
   return (
+    
     <section
       className="relative overflow-hidden bg-cover bg-center"
       style={{ backgroundImage: `url(${bgHero})` }}
@@ -86,7 +131,7 @@ function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-xs md:max-w-sm"
+            className="max-w-xs md:max-w-sm my-20"
           />
           <p className="mt-4 text-zinc-300 text-lg max-w-prose">
             Estratégia integrada para transformar resultados: tráfego pago, conteúdo, design e funis de conversão trabalhando juntos para mudar o placar do seu negócio em São José dos Campos.
@@ -97,12 +142,15 @@ function Hero() {
             <li>• Previsibilidade: leads constantes e CAC otimizado</li>
           </ul>
           <div className="mt-8 flex gap-3">
+            
             <a
-              href="#form"
-              className="px-5 py-3 rounded-2xl bg-orange-500 text-zinc-950 font-semibold hover:bg-orange-400 transition"
-            >
-              Agendar diagnóstico
-            </a>
+  href={waUrlFromMessage(formatQuickMessage("Hero", utmHero))}
+  target="_blank"
+  rel="noopener"
+  className="px-5 py-3 rounded-2xl bg-orange-500 text-zinc-950 font-semibold hover:bg-orange-400 transition"
+>
+  Agendar diagnóstico
+</a>
             <a
               href="#provas"
               className="px-5 py-3 rounded-2xl border border-zinc-700 hover:border-zinc-500 transition"
@@ -167,7 +215,7 @@ function TrustBar() {
 
 function Problem() {
   return (
-    <section className="max-w-7xl mx-auto px-4 py-24" id="problema">
+    <section className="max-w-7xl mx-auto px-4 py-20" id="problema">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
         <div className="space-y-8">
           <div className="space-y-4">
@@ -195,13 +243,9 @@ function Problem() {
             ))}
           </div>
           
-          <div className="p-6 rounded-2xl bg-gradient-to-r from-red-500/10 to-orange-500/10 border border-red-500/20">
-            <p className="text-zinc-300">
-              <strong className="text-white">A realidade:</strong> Empresas que não investem em presença digital estratégica 
-              perdem até 70% das oportunidades de mercado para concorrentes mais visíveis.
-            </p>
-          </div>
+          
         </div>
+        
 
         <div className="relative">
           <div className="relative rounded-3xl overflow-hidden border border-zinc-800 bg-zinc-900/40 p-8">
@@ -228,6 +272,12 @@ function Problem() {
           </div>
         </div>
       </div>
+      <div className="p-6 rounded-2xl bg-gradient-to-r from-red-500/10 to-orange-500/10 border border-red-500/20 w-full my-20">
+            <p className="text-zinc-300">
+              <strong className="text-white">A realidade:</strong> Empresas que não investem em presença digital estratégica 
+              perdem até 70% das oportunidades de mercado para concorrentes mais visíveis.
+            </p>
+          </div>
     </section>
   );
 }
@@ -260,10 +310,10 @@ function Solution() {
     <section
       id="como-funciona"
       className="relative bg-cover bg-center"
-      style={{ backgroundImage: `url(${bgHero})` }}
+      style={{ backgroundImage: `url(${bgHero2})` }}
     >
       {/* Overlay para contraste */}
-      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 bg-black/20" />
 
       <div className="relative max-w-7xl mx-auto px-4 py-24">
         <div className="text-center mb-16">
@@ -455,44 +505,43 @@ function LeadForm() {
 
     // Validação básica
     if (!data.nome || !data.email || !data.whatsapp) {
-      setStatus({ state: "error", message: "Por favor, preencha todos os campos obrigatórios." });
+      setStatus({ state: "error", message: "Por favor, preencha nome, e‑mail e WhatsApp." });
       return;
     }
 
-    // Validação de email
+    // Validação de e-mail
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(data.email)) {
       setStatus({ state: "error", message: "Por favor, insira um e-mail válido." });
       return;
     }
 
-    setStatus({ state: "loading", message: "Enviando..." });
-    
+    setStatus({ state: "loading", message: "Abrindo WhatsApp..." });
+
     try {
       const payload = {
         ...data,
         ...utm,
-        origem: 'LP Vire o Jogo - Versão Profissional',
-        timestamp: new Date().toISOString()
+        origem: "LP Vire o Jogo - Formulário",
       };
 
-      const res = await fetch(FORM_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
+      const message = formatLeadMessage(payload);
+      const url = waUrlFromMessage(message);
 
-      if (!res.ok) throw new Error('Erro na solicitação');
-      
-      setStatus({ 
-        state: "success", 
-        message: "Perfeito! Recebemos seus dados e entraremos em contato em até 2 horas úteis." 
+      const win = window.open(url, "_blank");
+      if (!win || win.closed || typeof win.closed === "undefined") {
+        window.location.href = url; // fallback caso pop-up seja bloqueado
+      }
+
+      setStatus({
+        state: "success",
+        message: "Perfeito! Vamos continuar pelo WhatsApp. Se a janela não abriu, clique no botão novamente.",
       });
       form.reset();
-    } catch (err) {
-      setStatus({ 
-        state: "error", 
-        message: "Ops! Algo deu errado. Tente novamente ou entre em contato via WhatsApp." 
+    } catch {
+      setStatus({
+        state: "error",
+        message: "Ops! Não conseguimos abrir o WhatsApp. Verifique pop-ups ou tente novamente.",
       });
     }
   }
@@ -500,10 +549,10 @@ function LeadForm() {
   return (
     <div className="relative">
       <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-orange-600/10 rounded-3xl blur-xl" />
-      <form onSubmit={handleSubmit} className="relative rounded-3xl border border-zinc-800 bg-zinc-900/80 backdrop-blur-sm p-8 shadow-2xl">
+      <form onSubmit={handleSubmit} className="relative rounded-3xl border border-zinc-800 bg-neutral-800/80 backdrop-blur-md p-8 shadow-2xl">
         <div className="mb-6">
           <h3 className="text-xl font-bold text-white mb-2">Solicite seu diagnóstico gratuito</h3>
-          <p className="text-zinc-400 text-sm">Preencha os dados abaixo e nossa equipe entrará em contato</p>
+          <p className="text-zinc-300 text-sm">Preencha os dados abaixo e nossa equipe entrará em contato</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -517,68 +566,68 @@ function LeadForm() {
 
         <div className="mb-6">
           <Label>Website atual (se houver)</Label>
-          <input 
-            name="website" 
-            type="url" 
-            placeholder="https://suaempresa.com" 
-            className="mt-1 w-full rounded-xl bg-zinc-950/50 border border-zinc-700 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-500/40 transition-all" 
+          <input
+            name="website"
+            type="url"
+            placeholder="https://suaempresa.com"
+            className="mt-1 w-full rounded-xl bg-zinc-950/50 border border-zinc-700 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-500/40 transition-all"
           />
         </div>
 
         <div className="mb-6">
           <Label>Principal desafio atual</Label>
-          <textarea 
-            name="desafio" 
-            rows={3} 
-            className="mt-1 w-full rounded-xl bg-zinc-950/50 border border-zinc-700 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-500/40 transition-all resize-none" 
+          <textarea
+            name="desafio"
+            rows={3}
+            className="mt-1 w-full rounded-xl bg-zinc-950/50 border border-zinc-700 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-500/40 transition-all resize-none"
             placeholder="Ex: Gerar leads qualificados, melhorar ROI das campanhas, aumentar vendas online..."
           />
         </div>
 
         <div className="mb-6 flex items-start gap-3 text-xs text-zinc-400">
-          <input 
-            id="lgpd" 
-            name="lgpd" 
-            type="checkbox" 
-            required 
-            className="mt-1 w-4 h-4 rounded border-zinc-600 bg-zinc-800 text-orange-500 focus:ring-orange-500/40" 
+          <input
+            id="lgpd"
+            name="lgpd"
+            type="checkbox"
+            required
+            className="mt-1 w-4 h-4 rounded border-zinc-600 bg-zinc-800 text-orange-500 focus:ring-orange-500/40"
           />
           <label htmlFor="lgpd" className="leading-relaxed">
-            Concordo em receber contato da VOIA Agency para apresentação do diagnóstico 
+            Concordo em receber contato da VOIA Agency para apresentação do diagnóstico
             e entendo que meus dados serão tratados conforme nossa política de privacidade. *
           </label>
         </div>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <button 
+          <button
             type="submit"
-            disabled={status.state === 'loading'} 
+            disabled={status.state === "loading"}
             className="flex-1 sm:flex-initial px-8 py-4 rounded-full bg-orange-500 text-zinc-950 font-semibold hover:bg-orange-400 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed shadow-lg hover:shadow-orange-500/25"
           >
-            {status.state === 'loading' ? 'Enviando...' : 'Solicitar diagnóstico gratuito'}
+            {status.state === "loading" ? "Abrindo WhatsApp..." : "Solicitar diagnóstico gratuito"}
           </button>
-          
-          {status.state !== 'idle' && (
-            <p className={`text-sm ${
-              status.state === 'success' ? 'text-green-400' : 
-              status.state === 'error' ? 'text-red-400' : 'text-zinc-400'
-            }`}>
+
+          {status.state !== "idle" && (
+            <p
+              className={`text-sm ${
+                status.state === "success" ? "text-green-400" : status.state === "error" ? "text-red-400" : "text-zinc-400"
+              }`}
+            >
               {status.message}
             </p>
           )}
         </div>
 
         {/* UTM Hidden Fields */}
-        <input type="hidden" name="utm_source" value={utm.utm_source || ''} />
-        <input type="hidden" name="utm_medium" value={utm.utm_medium || ''} />
-        <input type="hidden" name="utm_campaign" value={utm.utm_campaign || ''} />
-        <input type="hidden" name="utm_term" value={utm.utm_term || ''} />
-        <input type="hidden" name="utm_content" value={utm.utm_content || ''} />
+        <input type="hidden" name="utm_source" value={utm.utm_source || ""} />
+        <input type="hidden" name="utm_medium" value={utm.utm_medium || ""} />
+        <input type="hidden" name="utm_campaign" value={utm.utm_campaign || ""} />
+        <input type="hidden" name="utm_term" value={utm.utm_term || ""} />
+        <input type="hidden" name="utm_content" value={utm.utm_content || ""} />
       </form>
     </div>
   );
 }
-
 function Input({ label, name, type = 'text', placeholder, required = false }) {
   return (
     <div>
@@ -734,14 +783,17 @@ function Footer() {
 }
 
 function StickyCTA() {
+    const utmSticky = useUTM();
   return (
     <div className="lg:hidden fixed bottom-4 left-4 right-4 z-50">
-      <a 
-        href="#form" 
-        className="block text-center w-full px-6 py-4 rounded-full bg-orange-500 text-zinc-950 font-semibold shadow-2xl hover:bg-orange-400 transition-all duration-200"
-      >
-        🚀 Quero meu diagnóstico gratuito
-      </a>
+      <a
+  href={waUrlFromMessage(formatQuickMessage("StickyCTA (mobile)", utmSticky))}
+  target="_blank"
+  rel="noopener"
+  className="block text-center w-full px-6 py-4 rounded-full bg-orange-500 text-zinc-950 font-semibold shadow-2xl hover:bg-orange-400 transition-all duration-200"
+>
+  🚀 Quero meu diagnóstico gratuito
+</a>
     </div>
   );
 }
