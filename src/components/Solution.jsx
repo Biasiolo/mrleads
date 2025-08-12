@@ -40,6 +40,7 @@ export default function Solution() {
         muted
         loop
         playsInline
+        preload="auto"
       />
       {/* Overlay para contraste */}
       <div className="absolute inset-0 bg-black/60" />
