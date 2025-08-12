@@ -18,7 +18,32 @@ export default function Hero() {
       className="relative overflow-hidden bg-cover bg-center"
       style={{ backgroundImage: `url(${bgHero})` }}
     >
-      <div className="absolute inset-0 bg-black/50" />
+      {/* Overlay com maior visibilidade */}
+      
+      
+      {/* Animação de escala contínua */}
+      <motion.div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${bgHero})` }}
+        initial={{ scale: 1 }}
+        animate={{ scale: 1.05 }}
+        transition={{
+          scale: {
+            repeat: Infinity,
+            repeatType: "mirror", // Volta de 1.2 para 1
+            duration: 10, // Tempo de cada ciclo
+            ease: "easeInOut",
+          },
+        }}
+      />
+
+      <motion.div
+        className="absolute inset-0 bg-black/40"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, ease: "easeInOut" }}
+      />
+
       <div className="relative max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center px-4 py-16 md:py-24">
         {/* Coluna Esquerda */}
         <motion.div
@@ -30,13 +55,25 @@ export default function Hero() {
           }}
         >
           <motion.img
-            src={logoHero}
-            alt="Vire o Jogo com a VOIA"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="max-w-xs md:max-w-sm my-20"
-          />
+  src={logoHero}
+  alt="Vire o Jogo com a VOIA"
+  initial={{ opacity: 0, y: 30 }}
+  animate={{
+    opacity: 1,
+    y: 0,
+    rotate: [2, 0, 8, 2], // Inclina para um lado, depois volta e para
+  }}
+  transition={{
+    opacity: { delay: 0.2, duration: 0.6 },
+    rotate: {
+      repeat: Infinity,
+      repeatType: "loop", // Faz o loop contínuo
+      duration: 4.5, // Tempo total do ciclo (inclinação + pausa)
+      ease: "easeInOut",
+    },
+  }}
+  className="max-w-xs md:max-w-sm my-20"
+/>
           <motion.p
             className="mt-4 text-zinc-300 text-lg max-w-prose"
             initial={{ opacity: 0, y: 15 }}
@@ -114,6 +151,8 @@ export default function Hero() {
     </section>
   );
 }
+
+
 
 /* =========================================
    Reuso: LeadForm + pequenos UI helpers

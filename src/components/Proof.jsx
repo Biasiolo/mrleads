@@ -1,94 +1,170 @@
-// src/components/Proof.jsx
+import { motion, useReducedMotion } from "framer-motion";
+
 export default function Proof() {
+  const prefersReduced = useReducedMotion();
+
   const stats = [
-    { kpi: "+347%", label: "Crescimento em leads", period: "Últimos 6 meses" },
-    { kpi: "-68%", label: "Redução no CAC", period: "Média dos clientes" },
-    { kpi: "+156%", label: "Aumento em conversões", period: "Comparado ao período anterior" },
-    { kpi: "4.2x", label: "Retorno sobre investimento", period: "ROI médio comprovado" },
+    { icon: "📈", label: "Mais visibilidade no Google", period: "Clientes encontrando você todos os dias" },
+    { icon: "🤝", label: "Mais clientes qualificados", period: "Conectando empresas e oportunidades" },
+    { icon: "🏆", label: "Mais credibilidade online", period: "Presença profissional que gera confiança" },
+    { icon: "🚀", label: "Mais vendas e resultados", period: "Estratégia para crescimento contínuo" },
   ];
 
   const testimonials = [
     {
       quote:
-        "Em 90 dias saímos do zero para R$ 50k em pipeline qualificado. A VOIA não vende sonho, entrega resultado.",
-      author: "Ricardo Silva",
-      position: "CEO",
-      company: "TechFlow Solutions",
+        "Escolher a Voia foi um divisor de águas para o meu negócio. A equipe entendeu minha visão, trouxe soluções criativas e entregou tudo com excelência. Foi mais do que contratar uma agência, foi encontrar um parceiro estratégico que realmente se importa com o resultado.",
+      author: "José Alberto Oliveira",
       avatar: "🧑‍💼",
     },
     {
       quote:
-        "Finalmente entendemos nosso funil. Leads previsíveis e conversão otimizada. Investimento que se paga sozinho.",
-      author: "Dr. Marina Costa",
-      position: "Diretora",
-      company: "Clínica Excellence",
-      avatar: "👩‍⚕️",
+        "A Voia Agency superou minhas expectativas com profissionalismo, criatividade e um olhar estratégico que realmente faz a diferença. Desde o primeiro contato, senti segurança e clareza em cada etapa do processo. Gratidão por entregarem mais do que serviços, entregam valor, identidade e resultado.",
+      author: "Traluz",
+      avatar: "💡",
     },
     {
       quote:
-        "Pararam de vender 'criativo bonito' e começaram a vender resultado. Nossa receita cresceu 280% em 6 meses.",
-      author: "André Campos",
-      position: "Sócio-fundador",
-      company: "Inovare Consultoria",
-      avatar: "👨‍💻",
+        "Tive uma das melhores experiências no ramo de marketing com a Voia. Desde o primeiro contato, a equipe se mostrou extremamente atenciosa, prestativa e comprometida com os melhores resultados. A dedicação e o profissionalismo deles fazem toda a diferença.",
+      author: "Lais Marques",
+      avatar: "⭐",
     },
   ];
 
+  const container = {
+    hidden: { opacity: 0, y: 12 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
+
+  const stagger = {
+    show: {
+      transition: { staggerChildren: 0.12, delayChildren: 0.1 },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 16 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  };
+
+  const float = prefersReduced
+    ? {}
+    : { y: [0, -1, 0], transition: { duration: 2, repeat: Infinity, ease: "easeIn" } };
+
   return (
-    <section id="provas" className="max-w-7xl mx-auto px-4 py-24">
-      <div className="text-center mb-16">
-        <div className="inline-block px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-sm font-medium mb-4">
+    <motion.section
+      id="provas"
+      className="max-w-7xl mx-auto px-4 py-24"
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-100px" }}
+    >
+      {/* Header */}
+      <motion.div className="text-center mb-16" variants={container}>
+        <motion.div
+          className="inline-block px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-sm font-medium mb-4"
+          variants={item}
+        >
           Resultados comprovados
-        </div>
-        <h2 className="text-4xl lg:text-5xl font-bold leading-tight mb-6">
-          Números que falam por si só
-        </h2>
-        <p className="text-xl text-zinc-300 max-w-3xl mx-auto">
-          Cases reais de transformação digital. Resultados podem variar, mas a metodologia é consistente.
-        </p>
-      </div>
+        </motion.div>
+
+        <motion.h2
+          className="text-4xl lg:text-5xl font-bold leading-tight mb-6"
+          variants={item}
+        >
+          Histórias de quem confiou e cresceu com a Voia
+        </motion.h2>
+
+        <motion.p
+          className="text-xl text-zinc-300 max-w-3xl mx-auto"
+          variants={item}
+        >
+          Depoimentos reais e conquistas alcançadas com nossa metodologia.
+        </motion.p>
+      </motion.div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-        {stats.map((stat, index) => (
-          <div
-            key={index}
-            className="text-center p-6 rounded-2xl bg-neutral-100 border border-zinc-800"
+      <motion.div
+        className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
+        variants={stagger}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+      >
+        {stats.map((stat, i) => (
+          <motion.div
+            key={i}
+            variants={item}
+            whileHover={{ y: -4, scale: 1.02 }}
+            transition={{ type: "spring", stiffness: 250, damping: 18 }}
+            className="text-center p-6 rounded-2xl bg-neutral-100 border border-zinc-800 shadow-sm"
           >
-            <div className="text-3xl lg:text-4xl font-bold text-orange-500 mb-2">
-              {stat.kpi}
-            </div>
+            <motion.div className="text-4xl mb-2 inline-block" animate={float}>
+              {stat.icon}
+            </motion.div>
             <div className="font-semibold text-zinc-900 mb-1">{stat.label}</div>
             <div className="text-sm text-zinc-700">{stat.period}</div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Testimonials */}
-      <div className="grid md:grid-cols-3 gap-8">
-        {testimonials.map((testimonial, index) => (
-          <div
-            key={index}
-            className="p-8 rounded-3xl bg-zinc-900/50 border border-zinc-800 hover:border-orange-500/30 transition-all duration-300"
+      <motion.div
+        className="grid md:grid-cols-3 gap-8"
+        variants={stagger}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+      >
+        {testimonials.map((t, i) => (
+          <motion.article
+            key={i}
+            variants={item}
+            whileHover={{ y: -4, boxShadow: "0 8px 30px rgba(255,125,0,0.12)" }}
+            className="h-full p-8 rounded-3xl bg-zinc-900/50 border border-zinc-800 hover:border-orange-500/40 transition-all duration-300 flex flex-col"
           >
-            <div className="mb-6">
-              <div className="flex text-orange-400 text-lg mb-4">★★★★★</div>
-              <p className="text-zinc-200 leading-relaxed">"{testimonial.quote}"</p>
+            {/* Conteúdo */}
+            <div>
+              <div className="flex text-orange-400 text-lg mb-4" aria-label="avaliação 5 estrelas">
+                {[...Array(5)].map((_, s) => (
+                  <motion.span
+                    key={s}
+                    initial={{ scale: 0.6, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.05 * s, type: "spring", stiffness: 300, damping: 18 }}
+                  >
+                    ★
+                  </motion.span>
+                ))}
+              </div>
+              <p className="text-zinc-200 mb-4 leading-relaxed">"{t.quote}"</p>
             </div>
-            <div className="flex items-center gap-3">
+
+            {/* Rodapé fixo */}
+            <div className="mt-auto pt-6 flex items-center gap-3 border-t border-zinc-800">
               <div className="w-12 h-12 rounded-full bg-orange-500/20 flex items-center justify-center text-2xl">
-                {testimonial.avatar}
+                {t.avatar}
               </div>
               <div>
-                <div className="font-semibold text-white">{testimonial.author}</div>
-                <div className="text-sm text-zinc-400">
-                  {testimonial.position} • {testimonial.company}
-                </div>
+                <div className="font-semibold text-white">{t.author}</div>
+                <a
+                  href="https://www.google.com/maps/place/Voia+Agency/@-23.1997427,-45.88613,17z/data=!4m8!3m7!1s0x94cc4bcc84e07e2f:0xd454d428934fc758!8m2!3d-23.1997477!4d-45.8835551!9m1!1b1!16s%2Fg%2F11kpr5dzk3?hl=en-GB&entry=ttu&g_ep=EgoyMDI1MDgxMC4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-zinc-400 hover:text-orange-400 transition-colors"
+                >
+                  Google Review
+                </a>
               </div>
             </div>
-          </div>
+          </motion.article>
         ))}
-      </div>
-    </section>
+      </motion.div>
+
+    </motion.section>
   );
 }

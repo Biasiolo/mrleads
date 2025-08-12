@@ -59,7 +59,7 @@ export default function Problem() {
               <h3 className="text-2xl font-semibold text-white mb-4">Empresas sem Agência de Marketing</h3>
 
               <div className="flex justify-between items-center text-sm">
-                <span className="text-zinc-400">Visibilidade online</span>
+                <span className="text-orange-500 font-bold">Visibilidade online</span>
                 <span className="text-red-400 font-semibold">57%</span>
               </div>
               <p className="text-zinc-300 text-xs">
@@ -67,7 +67,7 @@ export default function Problem() {
               </p>
 
               <div className="flex justify-between items-center text-sm">
-                <span className="text-zinc-400">Geração de leads</span>
+                <span className="text-orange-500 font-bold">Geração de leads</span>
                 <span className="text-red-400 font-semibold">61%</span>
               </div>
               <p className="text-zinc-300 text-xs">
@@ -75,7 +75,7 @@ export default function Problem() {
               </p>
 
               <div className="flex justify-between items-center text-sm">
-                <span className="text-zinc-400">ROI em mídia paga</span>
+                <span className="text-orange-500 font-bold">ROI em mídia paga</span>
                 <span className="text-red-400 font-semibold">72%</span>
               </div>
               <p className="text-zinc-300 text-xs">
@@ -90,7 +90,7 @@ export default function Problem() {
 
       </div>
 
-      <div className="p-6 rounded-2xl bg-gradient-to-r from-red-500/10 to-orange-500/10 border border-red-500/20 w-full my-20">
+      <div className="p-6 rounded-2xl bg-gradient-to-t from-orange-400/10 to-orange-500/10 border border-orange-500/20 w-full my-20">
         <p className="text-zinc-300">
           <strong className="text-white">A realidade:</strong> Empresas que não
           investem em presença digital estratégica perdem até 70% das

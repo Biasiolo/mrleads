@@ -76,7 +76,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-zinc-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-zinc-400">
+        <div className="border-t border-zinc-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-orange-500">
           <p>© {new Date().getFullYear()} VOIA Agency. Todos os direitos reservados.</p>
           <div className="flex gap-6">
             <a href="#" className="hover:text-white transition-colors">
