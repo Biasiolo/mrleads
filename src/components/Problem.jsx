@@ -56,7 +56,7 @@ export default function Problem() {
               src="https://cdn.discordapp.com/attachments/1360257186001064188/1404838840534831225/descending-graph-written-black-board.jpg?ex=689ca5a0&is=689b5420&hm=f288fed1aa23b053598695da97e89d323a981c542b545e0f9657ddf9d463fec0&"
             />
             <div className="space-y-3">
-              <h3 className="text-2xl font-semibold text-white mb-4">Empresas sem Agência de Marketing</h3>
+              <h3 className="text-2xl text-center font-semibold text-white mb-4">Empresas sem Agência de Marketing</h3>
 
               <div className="flex justify-between items-center text-sm">
                 <span className="text-orange-500 font-bold">Visibilidade online</span>
