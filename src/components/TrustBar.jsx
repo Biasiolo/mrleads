@@ -1,6 +1,7 @@
 // src/components/TrustBar.jsx
 import { motion } from "framer-motion";
 import CountUp from "react-countup";
+import { useInView } from "react-intersection-observer";
 
 export default function TrustBar() {
   const metrics = [
@@ -34,7 +35,7 @@ export default function TrustBar() {
       value: 13.5,
       prefix: "↑ ",
       suffix: " %",
-      label: "Crescimento transformação digital",
+      label: "Crescimento digital",
       desc: "CAGR esperado até 2030",
     },
   ];
@@ -60,7 +61,7 @@ export default function TrustBar() {
           variants={container}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: false, amount: 0.2 }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
         >
           {metrics.map((m, i) => (
@@ -71,31 +72,14 @@ export default function TrustBar() {
               className="text-center rounded-2xl p-4 transition-colors"
             >
               <div className="text-2xl lg:text-3xl font-bold text-orange-500 mb-2">
-                {m.type === "currency" && (
-                  <>
-                    {m.prefix}
-                    <CountUp end={m.value} decimals={1} decimal="," />
-                    {m.suffix}
-                  </>
-                )}
-
-                {m.type === "percent" && (
-                  <>
-                    {m.prefix}
-                    <CountUp end={m.value} decimals={1} decimal="," />
-                    {m.suffix}
-                  </>
-                )}
-
-                {m.type === "rangePercent" && (
-                  <>
-                    {m.prefix}
-                    <CountUp end={m.min} decimals={1} decimal="," />
-                    {" – "}
-                    <CountUp end={m.max} decimals={1} decimal="," />
-                    {m.suffix}
-                  </>
-                )}
+                <CountUpWithVisibility
+                  start={0}
+                  end={m.type === "currency" ? m.value : m.type === "percent" ? m.value : m.min}
+                  decimals={1}
+                  decimal=","
+                  prefix={m.prefix}
+                  suffix={m.type === "rangePercent" ? ` – ${m.max}${m.suffix}` : m.suffix}
+                />
               </div>
 
               <div className="font-semibold text-white mb-1">{m.label}</div>
@@ -110,3 +94,16 @@ export default function TrustBar() {
     </section>
   );
 }
+
+const CountUpWithVisibility = ({ start, end, ...props }) => {
+  const { ref, inView } = useInView({
+    triggerOnce: true, // Apenas a primeira vez que entrar na tela
+    threshold: 0.2,    // Quando 20% do elemento for visível
+  });
+
+  return (
+    <div ref={ref}>
+      {inView && <CountUp start={start} end={end} {...props} />}
+    </div>
+  );
+};
