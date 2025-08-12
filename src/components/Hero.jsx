@@ -61,14 +61,14 @@ export default function Hero() {
   animate={{
     opacity: 1,
     y: 0,
-    rotate: [2, 0, 8, 2], // Inclina para um lado, depois volta e para
+    rotate: [2, 0, 2, 2], // Inclina para um lado, depois volta e para
   }}
   transition={{
     opacity: { delay: 0.2, duration: 0.6 },
     rotate: {
       repeat: Infinity,
       repeatType: "loop", // Faz o loop contínuo
-      duration: 4.5, // Tempo total do ciclo (inclinação + pausa)
+      duration: 2, // Tempo total do ciclo (inclinação + pausa)
       ease: "easeInOut",
     },
   }}
@@ -273,7 +273,7 @@ export function LeadForm() {
           <button
             type="submit"
             disabled={status.state === "loading"}
-            className="flex-1 sm:flex-initial px-8 py-4 rounded-full bg-orange-500 text-zinc-950 font-semibold hover:bg-orange-400 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed shadow-lg hover:shadow-orange-500/25"
+            className="flex-1 cursor-pointer sm:flex-initial px-8 py-4 rounded-full bg-orange-500 text-zinc-950 font-semibold hover:bg-orange-400 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed shadow-lg hover:shadow-orange-500/25"
           >
             {status.state === "loading" ? "Abrindo WhatsApp..." : "Solicitar diagnóstico gratuito"}
           </button>

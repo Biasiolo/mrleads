@@ -90,7 +90,7 @@ export default function Problem() {
 
       </div>
 
-      <div className="p-6 rounded-2xl bg-gradient-to-t from-orange-400/10 to-orange-500/10 border border-orange-500/20 w-full my-20">
+      <div className="p-6 rounded-2xl bg-gradient-to-t from-orange-400/10 to-orange-500/10 border border-orange-500/20 w-full mt-20 mb-4">
         <p className="text-zinc-300">
           <strong className="text-white">A realidade:</strong> Empresas que não
           investem em presença digital estratégica perdem até 70% das
