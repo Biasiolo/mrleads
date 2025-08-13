@@ -2,7 +2,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import logoHero from "@/assets/logo.png";
-import bgHero from "@/assets/bg.png";
+
+
+import video1 from "@/assets/video1.webm";
 import { useUTM } from "@/hooks/useUTM";
 import {
   waUrlFromMessage,
@@ -15,27 +17,20 @@ export default function Hero() {
 
   return (
     <section
-      className="relative overflow-hidden bg-cover bg-center"
-      style={{ backgroundImage: `url(${bgHero})` }}
-    >
+      className="relative overflow-hidden bg-cover bg-center">
+
+        <video
+        className="absolute inset-0 w-full h-full object-cover"
+        src={video1}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+      />
       {/* Overlay com maior visibilidade */}
       
-      
-      {/* Animação de escala contínua */}
-      <motion.div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${bgHero})` }}
-        initial={{ scale: 1 }}
-        animate={{ scale: 1.05 }}
-        transition={{
-          scale: {
-            repeat: Infinity,
-            repeatType: "mirror", // Volta de 1.2 para 1
-            duration: 10, // Tempo de cada ciclo
-            ease: "easeInOut",
-          },
-        }}
-      />
+
 
       <motion.div
         className="absolute inset-0 bg-black/40"

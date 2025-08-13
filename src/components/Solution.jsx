@@ -1,17 +1,12 @@
 // src/components/Solution.jsx
-import video1 from "@/assets/video1.webm";
+import bgHero from "@/assets/bg.png";
 
 export default function Solution() {
   const pillars = [
     {
       title: "Estratégia & Estrutura",
       desc: "Diagnóstico completo, posicionamento estratégico e criação de assets digitais otimizados para conversão",
-      features: [
-        "Análise competitiva",
-        "Persona & ICP",
-        "Brand guidelines",
-        "Website otimizado",
-      ],
+      features: ["Análise competitiva", "Persona & ICP", "Brand guidelines", "Website otimizado"],
     },
     {
       title: "Atração & Tráfego",
@@ -31,19 +26,13 @@ export default function Solution() {
   ];
 
   return (
-    <section id="como-funciona" className="relative overflow-hidden">
-      {/* Vídeo de fundo */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover"
-        src={video1}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-      />
+    <section
+      id="como-funciona"
+      className="relative overflow-hidden bg-cover bg-center"
+      style={{ backgroundImage: `url(${bgHero})` }}
+    >
       {/* Overlay para contraste */}
-      <div className="absolute inset-0 bg-black/60" />
+      <div className="absolute inset-0 bg-black/60 pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 py-24">
         <div className="text-center mb-16">
@@ -54,8 +43,7 @@ export default function Solution() {
             Como transformamos seu negócio digital
           </h2>
           <p className="text-xl text-zinc-300 max-w-3xl mx-auto">
-            Metodologia proprietária com 4 pilares integrados para resultados
-            mensuráveis e crescimento previsível
+            Metodologia proprietária com 4 pilares integrados para resultados mensuráveis e crescimento previsível
           </p>
         </div>
 
@@ -69,9 +57,7 @@ export default function Solution() {
                       <div className="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center text-orange-400 font-bold text-sm">
                         {index + 1}
                       </div>
-                      <h3 className="text-xl font-bold text-white">
-                        {pillar.title}
-                      </h3>
+                      <h3 className="text-xl font-bold text-white">{pillar.title}</h3>
                     </div>
                     <p className="text-zinc-300 mb-6">{pillar.desc}</p>
                   </div>
@@ -79,10 +65,7 @@ export default function Solution() {
 
                 <div className="grid grid-cols-2 gap-3">
                   {pillar.features.map((feature, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center gap-2 text-sm text-zinc-400"
-                    >
+                    <div key={idx} className="flex items-center gap-2 text-sm text-zinc-400">
                       <div className="w-1.5 h-1.5 rounded-full bg-orange-500" />
                       {feature}
                     </div>
