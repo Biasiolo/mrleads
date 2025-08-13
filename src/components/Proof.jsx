@@ -152,6 +152,79 @@ export default function Proof() {
           </motion.article>
         ))}
       </motion.div>
+            {/* Clients logo strip */}
+      <motion.div
+        className="mt-26"
+        initial={{ opacity: 0, y: 8 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
+        <div className="text-center mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-800/40 border border-zinc-700 text-zinc-300 text-sm font-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
+            Marcas que confiam na Voia
+          </div>
+          <h3 className="mt-3 text-2xl font-semibold">Nossos parceiros</h3>
+        </div>
+
+        {/* container com fade nas bordas */}
+        <div className="relative">
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-zinc-950 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-zinc-950 to-transparent" />
+
+          <LogoCarousel
+            items={[
+              { name: "Cliente A", src: "/clients/logo-header.png" },
+              { name: "Cliente B", src: "/clients/logo-header.png" },
+              { name: "Cliente C", src: "/clients/logo-header.png" },
+              { name: "Cliente D", src: "/clients/logo-header.png" },
+              { name: "Cliente E", src: "/clients/logo-header.png" },
+              { name: "Cliente F", src: "/clients/logo-header.png" },
+            ]}
+            speed={22}   // segundos por loop (ajuste fino)
+            pauseOnHover
+          />
+        </div>
+      </motion.div>
+
     </motion.section>
+
+
+
+  );
+}
+function LogoCarousel({ items, speed = 20, pauseOnHover = true }) {
+  // Duplica o array para fazer o loop contínuo
+  const strip = [...items, ...items];
+
+  return (
+    <div className="overflow-hidden py-6">
+      <motion.div
+        className="flex items-center gap-10"
+        // loop horizontal infinito (0% -> -50% porque duplicamos)
+        animate={{ x: ["0%", "-50%"] }}
+        transition={{ duration: speed, ease: "linear", repeat: Infinity }}
+        {...(pauseOnHover ? { whileHover: { x: null } } : {})} // pausa o tween no hover
+      >
+        {strip.map((item, i) => (
+          <div key={`${item.name}-${i}`} className="flex items-center">
+            {item.src ? (
+              <img
+                src={item.src}
+                alt={item.name}
+                className="h-10 w-auto opacity-70 hover:opacity-100 transition-opacity duration-200 grayscale hover:grayscale-0"
+                loading="lazy"
+                height={40}
+              />
+            ) : (
+              <span className="px-4 py-2 text-sm text-zinc-300/80 border border-zinc-700 rounded-lg">
+                {item.name}
+              </span>
+            )}
+          </div>
+        ))}
+      </motion.div>
+    </div>
   );
 }
