@@ -1,13 +1,15 @@
+// src/components/Proof.jsx
 import { motion, useReducedMotion } from "framer-motion";
+import { FaChartLine, FaHandshake, FaShieldAlt, FaRocket } from "react-icons/fa";
 
 export default function Proof() {
   const prefersReduced = useReducedMotion();
 
   const stats = [
-    { icon: "📈", label: "Mais visibilidade no Google", period: "Clientes encontrando você todos os dias" },
-    { icon: "🤝", label: "Mais clientes qualificados", period: "Conectando empresas e oportunidades" },
-    { icon: "🏆", label: "Mais credibilidade online", period: "Presença profissional que gera confiança" },
-    { icon: "🚀", label: "Mais vendas e resultados", period: "Estratégia para crescimento contínuo" },
+    { Icon: FaChartLine, label: "Mais visibilidade no Google", period: "Clientes encontrando você todos os dias" },
+    { Icon: FaHandshake, label: "Mais clientes qualificados", period: "Conectando empresas e oportunidades" },
+    { Icon: FaShieldAlt, label: "Mais credibilidade online", period: "Presença profissional que gera confiança" },
+    { Icon: FaRocket, label: "Mais vendas e resultados", period: "Estratégia para crescimento contínuo" },
   ];
 
   const testimonials = [
@@ -33,27 +35,17 @@ export default function Proof() {
 
   const container = {
     hidden: { opacity: 0, y: 12 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
   };
 
-  const stagger = {
-    show: {
-      transition: { staggerChildren: 0.12, delayChildren: 0.1 },
-    },
-  };
+  const stagger = { show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } };
 
   const item = {
     hidden: { opacity: 0, y: 16 },
     show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
   };
 
-  const float = prefersReduced
-    ? {}
-    : { y: [0, -1, 0], transition: { duration: 2, repeat: Infinity, ease: "easeIn" } };
+  const float = prefersReduced ? {} : { y: [0, -2, 0], transition: { duration: 2.2, repeat: Infinity, ease: "easeInOut" } };
 
   return (
     <motion.section
@@ -72,17 +64,11 @@ export default function Proof() {
           Resultados comprovados
         </motion.div>
 
-        <motion.h2
-          className="text-4xl lg:text-5xl font-bold leading-tight mb-6"
-          variants={item}
-        >
+        <motion.h2 className="text-4xl lg:text-5xl font-bold leading-tight mb-6" variants={item}>
           Histórias de quem confiou e cresceu com a Voia
         </motion.h2>
 
-        <motion.p
-          className="text-xl text-zinc-300 max-w-3xl mx-auto"
-          variants={item}
-        >
+        <motion.p className="text-xl text-zinc-300 max-w-3xl mx-auto" variants={item}>
           Depoimentos reais e conquistas alcançadas com nossa metodologia.
         </motion.p>
       </motion.div>
@@ -95,19 +81,23 @@ export default function Proof() {
         whileInView="show"
         viewport={{ once: true }}
       >
-        {stats.map((stat, i) => (
+        {stats.map(({ Icon, label, period }, i) => (
           <motion.div
             key={i}
             variants={item}
             whileHover={{ y: -4, scale: 1.02 }}
             transition={{ type: "spring", stiffness: 250, damping: 18 }}
-            className="text-center p-6 rounded-2xl bg-neutral-100 border border-zinc-800 shadow-sm"
+            className="text-center p-6 rounded-2xl bg-neutral-100 border border-zinc-200 shadow-sm"
           >
-            <motion.div className="text-4xl mb-2 inline-block" animate={float}>
-              {stat.icon}
+            <motion.div
+              className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-orange-500/10 ring-1 ring-orange-500/20 text-orange-500"
+              animate={float}
+              aria-hidden="true"
+            >
+              <Icon className="h-6 w-6" />
             </motion.div>
-            <div className="font-semibold text-zinc-900 mb-1">{stat.label}</div>
-            <div className="text-sm text-zinc-700">{stat.period}</div>
+            <div className="font-semibold text-zinc-900 mb-1">{label}</div>
+            <div className="text-sm text-zinc-700">{period}</div>
           </motion.div>
         ))}
       </motion.div>
@@ -127,7 +117,6 @@ export default function Proof() {
             whileHover={{ y: -4, boxShadow: "0 8px 30px rgba(255,125,0,0.12)" }}
             className="h-full p-8 rounded-3xl bg-zinc-900/50 border border-zinc-800 hover:border-orange-500/40 transition-all duration-300 flex flex-col"
           >
-            {/* Conteúdo */}
             <div>
               <div className="flex text-orange-400 text-lg mb-4" aria-label="avaliação 5 estrelas">
                 {[...Array(5)].map((_, s) => (
@@ -144,7 +133,6 @@ export default function Proof() {
               <p className="text-zinc-200 mb-4 leading-relaxed">"{t.quote}"</p>
             </div>
 
-            {/* Rodapé fixo */}
             <div className="mt-auto pt-6 flex items-center gap-3 border-t border-zinc-800">
               <div className="w-12 h-12 rounded-full bg-orange-500/20 flex items-center justify-center text-2xl">
                 {t.avatar}
@@ -152,7 +140,7 @@ export default function Proof() {
               <div>
                 <div className="font-semibold text-white">{t.author}</div>
                 <a
-                  href="https://www.google.com/maps/place/Voia+Agency/@-23.1997427,-45.88613,17z/data=!4m8!3m7!1s0x94cc4bcc84e07e2f:0xd454d428934fc758!8m2!3d-23.1997477!4d-45.8835551!9m1!1b1!16s%2Fg%2F11kpr5dzk3?hl=en-GB&entry=ttu&g_ep=EgoyMDI1MDgxMC4wIKXMDSoASAFQAw%3D%3D"
+                  href="https://www.google.com/maps/place/Voia+Agency/@-23.1997427,-45.88613,17z/data=!4m8!3m7!1s0x94cc4bcc84e07e2f:0xd454d428934fc758!8m2!3d-23.1997477!4d-45.8835551!9m1!1b1!16s%2Fg%2F11kpr5dzk3?hl=en-GB&entry=ttu"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs text-zinc-400 hover:text-orange-400 transition-colors"
@@ -164,7 +152,6 @@ export default function Proof() {
           </motion.article>
         ))}
       </motion.div>
-
     </motion.section>
   );
 }

@@ -3,6 +3,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import logoHero from "@/assets/logo.png";
 
+import { sendLeadToMake } from "@/utils/makeWebhook";
+
 
 import video1 from "@/assets/video1.webm";
 import { useUTM } from "@/hooks/useUTM";
@@ -147,12 +149,6 @@ export default function Hero() {
   );
 }
 
-
-
-/* =========================================
-   Reuso: LeadForm + pequenos UI helpers
-   ========================================= */
-
 export function LeadForm() {
   const [status, setStatus] = useState({ state: "idle", message: "" });
   const utm = useUTM();
@@ -162,6 +158,9 @@ export function LeadForm() {
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form));
 
+    // Honeypot (campo invisível). Se preenchido, aborta silenciosamente.
+    if (data.company_website) return;
+
     // validação básica
     if (!data.nome || !data.email || !data.whatsapp) {
       setStatus({ state: "error", message: "Por favor, preencha nome, e-mail e WhatsApp." });
@@ -170,7 +169,7 @@ export function LeadForm() {
 
     // e-mail
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) {
+    if (!emailRegex.test(String(data.email).trim())) {
       setStatus({ state: "error", message: "Por favor, insira um e-mail válido." });
       return;
     }
@@ -182,8 +181,18 @@ export function LeadForm() {
         ...data,
         ...utm,
         origem: "LP Vire o Jogo - Formulário",
+        page: window.location.href,
+        userAgent: navigator.userAgent,
+        consentLGPD: !!data.lgpd,
+        timestamp: new Date().toISOString(),
       };
 
+      // Dispara para o Make (API Key via header). Não aguarda.
+      sendLeadToMake(payload);
+      // pequeno delay aumenta a chance do POST sair antes da navegação
+      await new Promise((r) => setTimeout(r, 150));
+
+      // Fluxo WhatsApp
       const message = formatLeadMessage(payload);
       const url = waUrlFromMessage(message);
 
@@ -212,7 +221,7 @@ export function LeadForm() {
       <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-orange-600/10 rounded-3xl blur-xl" />
       <form
         onSubmit={handleSubmit}
-        className="relative rounded-3xl border border-zinc-800 bg-neutral-800/80 backdrop-blur-md p-8 shadow-2xl"
+        className="relative rounded-3xl border border-zinc-800 bg-neutral-800/80 backdrop-blur-lg p-8 shadow-2xl"
       >
         <div className="mb-6">
           <h3 className="text-xl font-bold text-white mb-2">Solicite seu diagnóstico gratuito</h3>
@@ -250,6 +259,7 @@ export function LeadForm() {
           />
         </div>
 
+        {/* LGPD */}
         <div className="mb-6 flex items-start gap-3 text-xs text-zinc-400">
           <input
             id="lgpd"
@@ -263,6 +273,16 @@ export function LeadForm() {
             e entendo que meus dados serão tratados conforme nossa política de privacidade. *
           </label>
         </div>
+
+        {/* Honeypot invisível (anti-spam) */}
+        <input
+          type="text"
+          name="company_website"
+          tabIndex="-1"
+          autoComplete="off"
+          className="hidden"
+          aria-hidden="true"
+        />
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <button

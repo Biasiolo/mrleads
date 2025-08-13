@@ -50,7 +50,7 @@ export default function CTA() {
             <div className="p-6 rounded-2xl bg-gradient-to-r from-orange-500/10 to-orange-600/10 border border-orange-500/20">
               <p className="text-zinc-200">
                 <strong className="text-orange-400">Garantia:</strong> Se não identificarmos pelo menos 3 oportunidades
-                concretas de crescimento, devolvemos seu tempo investido.
+                concretas de crescimento, enviaremos um brinde.
               </p>
             </div>
           </div>
