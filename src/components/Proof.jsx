@@ -15,19 +15,19 @@ export default function Proof() {
   const testimonials = [
     {
       quote:
-        "Escolher a Voia foi um divisor de águas para o meu negócio. A equipe entendeu minha visão, trouxe soluções criativas e entregou tudo com excelência. Foi mais do que contratar uma agência, foi encontrar um parceiro estratégico que realmente se importa com o resultado.",
+        "Escolher a Mr.Leads foi um divisor de águas para o meu negócio. A equipe entendeu minha visão, trouxe soluções criativas e entregou tudo com excelência. Foi mais do que contratar uma agência, foi encontrar um parceiro estratégico que realmente se importa com o resultado.",
       author: "José Alberto Oliveira",
       avatar: "🧑‍💼",
     },
     {
       quote:
-        "A Voia Agency superou minhas expectativas com profissionalismo, criatividade e um olhar estratégico que realmente faz a diferença. Desde o primeiro contato, senti segurança e clareza em cada etapa do processo. Gratidão por entregarem mais do que serviços, entregam valor, identidade e resultado.",
+        "Mr.Leads superou minhas expectativas com profissionalismo, criatividade e um olhar estratégico que realmente faz a diferença. Desde o primeiro contato, senti segurança e clareza em cada etapa do processo. Gratidão por entregarem mais do que serviços, entregam valor, identidade e resultado.",
       author: "Traluz",
       avatar: "💡",
     },
     {
       quote:
-        "Tive uma das melhores experiências no ramo de marketing com a Voia. Desde o primeiro contato, a equipe se mostrou extremamente atenciosa, prestativa e comprometida com os melhores resultados. A dedicação e o profissionalismo deles fazem toda a diferença.",
+        "Tive uma das melhores experiências no ramo de marketing com a Mr.Leads. Desde o primeiro contato, a equipe se mostrou extremamente atenciosa, prestativa e comprometida com os melhores resultados. A dedicação e o profissionalismo deles fazem toda a diferença.",
       author: "Lais Marques",
       avatar: "⭐",
     },

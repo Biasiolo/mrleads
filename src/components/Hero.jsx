@@ -5,12 +5,8 @@ import logoHero from "@/assets/logomr.png";
 
 import video1 from "@/assets/video1.webm";
 import { useUTM } from "@/hooks/useUTM";
-import {
-  formatQuickMessage,
-  formatLeadMessage,
-} from "@/utils/whatsapp";
+import { formatQuickMessage, formatLeadMessage } from "@/utils/whatsapp";
 
-// Número fixo do WhatsApp
 const WHATSAPP_PHONE = "5511985888874";
 const waUrl = (message) =>
   `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
@@ -37,7 +33,8 @@ export default function Hero() {
         transition={{ duration: 1, ease: "easeInOut" }}
       />
 
-      <div className="relative max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center px-4 py-16 md:py-24">
+      {/* Aumentei o container para 7xl e dei mais respiro nos paddings */}
+      <div className="relative max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center px-4 py-16 md:py-24">
         {/* Coluna Esquerda */}
         <motion.div
           initial="hidden"
@@ -47,6 +44,7 @@ export default function Hero() {
             visible: { opacity: 1, x: 0, transition: { duration: 0.8 } },
           }}
         >
+          {/* Logo maior por breakpoint */}
           <motion.img
             src={logoHero}
             alt="Vire o Jogo com a VOIA"
@@ -65,7 +63,15 @@ export default function Hero() {
                 ease: "easeInOut",
               },
             }}
-            className="max-w-xs md:max-w-sm my-20"
+            className="
+              w-64    /* ~224px em mobile */
+              sm:w-72 /* ~256px */
+              md:w-80 /* ~320px */
+              lg:w-96 /* ~384px */
+              xl:w-[480px]
+              h-auto
+              my-10
+            "
           />
 
           <motion.p
@@ -145,6 +151,7 @@ export default function Hero() {
     </section>
   );
 }
+
 
 export function LeadForm() {
   const [status, setStatus] = useState({ state: "idle", message: "" });

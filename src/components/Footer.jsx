@@ -1,5 +1,5 @@
 // src/components/Footer.jsx
-import logoFooter from "@/assets/logo-header.png"; // use o arquivo que preferir (ex.: logo-header.png)
+import logoFooter from "@/assets/logomr.png"; // use o arquivo que preferir (ex.: logo-header.png)
 import { FaInstagram, FaLinkedin, FaFacebook } from "react-icons/fa";
 
 export default function Footer() {
@@ -26,7 +26,6 @@ export default function Footer() {
 
             <p className="text-zinc-300 mb-6 max-w-md">
               Transformamos negócios através de estratégia digital integrada.
-              Onde o querer é o ponto de partida para o crescimento sustentável.
             </p>
 
             {/* Socials */}
@@ -91,7 +90,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-zinc-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-orange-500">
-          <p>© {new Date().getFullYear()} VOIA Agency. Todos os direitos reservados.</p>
+          <p>© {new Date().getFullYear()} Mr.Leads. Todos os direitos reservados.</p>
           <div className="flex gap-6">
             <a href="#" className="hover:text-white transition-colors">Política de Privacidade</a>
             <a href="#" className="hover:text-white transition-colors">Termos de Uso</a>
