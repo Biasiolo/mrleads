@@ -1,4 +1,6 @@
 // src/components/Problem.jsx
+import graph from "@/assets/graph.jpg";
+
 export default function Problem() {
   return (
     <section className="max-w-7xl mx-auto px-4 py-20" id="problema">
@@ -53,7 +55,7 @@ export default function Problem() {
             <img
               alt="Gráfico de performance digital"
               className="w-full rounded-2xl border border-zinc-700 mb-4"
-              src="https://cdn.discordapp.com/attachments/1360257186001064188/1404838840534831225/descending-graph-written-black-board.jpg?ex=689ca5a0&is=689b5420&hm=f288fed1aa23b053598695da97e89d323a981c542b545e0f9657ddf9d463fec0&"
+              src={graph}
             />
             <div className="space-y-3">
               <h3 className="text-2xl text-center font-semibold text-white mb-4">Empresas sem Agência de Marketing</h3>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import logoHero2 from "@/assets/logo-header.png";
+import logoHero2 from "@/assets/logomr.png";
 import { useUTM } from "@/hooks/useUTM";
 import { waUrlFromMessage, formatQuickMessage } from "@/utils/whatsapp";
 

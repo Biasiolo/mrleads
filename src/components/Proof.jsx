@@ -168,7 +168,7 @@ export default function Proof() {
           <h3 className="mt-3 text-2xl font-semibold">Nossos parceiros</h3>
         </div>
 
-        {/* container com fade nas bordas */}
+        {/* container com fade nas bordas 
         <div className="relative">
           <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-zinc-950 to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-zinc-950 to-transparent" />
@@ -185,7 +185,7 @@ export default function Proof() {
             speed={22}   // segundos por loop (ajuste fino)
             pauseOnHover
           />
-        </div>
+        </div>*/}
       </motion.div>
 
     </motion.section>

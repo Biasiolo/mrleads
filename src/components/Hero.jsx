@@ -1,27 +1,26 @@
 // src/components/Hero.jsx
 import { useState } from "react";
 import { motion } from "framer-motion";
-import logoHero from "@/assets/logo.png";
-
-import { sendLeadToMake } from "@/utils/makeWebhook";
-
+import logoHero from "@/assets/logomr.png";
 
 import video1 from "@/assets/video1.webm";
 import { useUTM } from "@/hooks/useUTM";
 import {
-  waUrlFromMessage,
   formatQuickMessage,
   formatLeadMessage,
 } from "@/utils/whatsapp";
+
+// Número fixo do WhatsApp
+const WHATSAPP_PHONE = "5511985888874";
+const waUrl = (message) =>
+  `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
 
 export default function Hero() {
   const utmHero = useUTM();
 
   return (
-    <section
-      className="relative overflow-hidden bg-cover bg-center">
-
-        <video
+    <section className="relative overflow-hidden bg-cover bg-center">
+      <video
         className="absolute inset-0 w-full h-full object-cover"
         src={video1}
         autoPlay
@@ -30,9 +29,6 @@ export default function Hero() {
         playsInline
         preload="auto"
       />
-      {/* Overlay com maior visibilidade */}
-      
-
 
       <motion.div
         className="absolute inset-0 bg-black/40"
@@ -52,25 +48,26 @@ export default function Hero() {
           }}
         >
           <motion.img
-  src={logoHero}
-  alt="Vire o Jogo com a VOIA"
-  initial={{ opacity: 0, y: 30 }}
-  animate={{
-    opacity: 1,
-    y: 0,
-    rotate: [2, 0, 2, 2], // Inclina para um lado, depois volta e para
-  }}
-  transition={{
-    opacity: { delay: 0.2, duration: 0.6 },
-    rotate: {
-      repeat: Infinity,
-      repeatType: "loop", // Faz o loop contínuo
-      duration: 2, // Tempo total do ciclo (inclinação + pausa)
-      ease: "easeInOut",
-    },
-  }}
-  className="max-w-xs md:max-w-sm my-20"
-/>
+            src={logoHero}
+            alt="Vire o Jogo com a VOIA"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              rotate: [2, 0, 2, 2],
+            }}
+            transition={{
+              opacity: { delay: 0.2, duration: 0.6 },
+              rotate: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 2,
+                ease: "easeInOut",
+              },
+            }}
+            className="max-w-xs md:max-w-sm my-20"
+          />
+
           <motion.p
             className="mt-4 text-zinc-300 text-lg max-w-prose"
             initial={{ opacity: 0, y: 15 }}
@@ -119,7 +116,7 @@ export default function Hero() {
             transition={{ delay: 1.2, duration: 0.6 }}
           >
             <a
-              href={waUrlFromMessage(formatQuickMessage("Hero", utmHero))}
+              href={waUrl(formatQuickMessage("Hero", utmHero))}
               target="_blank"
               rel="noopener"
               className="px-5 py-3 rounded-2xl bg-orange-500 text-zinc-950 font-semibold hover:bg-orange-400 transition"
@@ -158,7 +155,7 @@ export function LeadForm() {
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form));
 
-    // Honeypot (campo invisível). Se preenchido, aborta silenciosamente.
+    // Honeypot
     if (data.company_website) return;
 
     // validação básica
@@ -167,7 +164,6 @@ export function LeadForm() {
       return;
     }
 
-    // e-mail
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(String(data.email).trim())) {
       setStatus({ state: "error", message: "Por favor, insira um e-mail válido." });
@@ -187,31 +183,27 @@ export function LeadForm() {
         timestamp: new Date().toISOString(),
       };
 
-      // Dispara para o Make (API Key via header). Não aguarda.
-      sendLeadToMake(payload);
-      // pequeno delay aumenta a chance do POST sair antes da navegação
-      await new Promise((r) => setTimeout(r, 150));
-
-      // Fluxo WhatsApp
+      // Removido: envio para webhook/Make
+      // Abrir WhatsApp no número fixo com a mensagem formatada
       const message = formatLeadMessage(payload);
-      const url = waUrlFromMessage(message);
+      const url = waUrl(message);
 
       const win = window.open(url, "_blank");
       if (!win || win.closed || typeof win.closed === "undefined") {
-        window.location.href = url; // fallback
+        window.location.href = url;
       }
 
       setStatus({
         state: "success",
         message:
-          "Perfeito! Vamos continuar pelo WhatsApp. Se a janela não abriu, clique no botão novamente.",
+          "Perfeito. Vamos continuar pelo WhatsApp. Se a janela não abriu, clique no botão novamente.",
       });
       form.reset();
     } catch {
       setStatus({
         state: "error",
         message:
-          "Ops! Não conseguimos abrir o WhatsApp. Verifique pop-ups ou tente novamente.",
+          "Não foi possível abrir o WhatsApp. Verifique bloqueio de pop-ups ou tente novamente.",
       });
     }
   }
