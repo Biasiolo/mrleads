@@ -22,7 +22,7 @@ export default function Proof() {
     {
       quote:
         "Mr.Leads superou minhas expectativas com profissionalismo, criatividade e um olhar estratégico que realmente faz a diferença. Desde o primeiro contato, senti segurança e clareza em cada etapa do processo. Gratidão por entregarem mais do que serviços, entregam valor, identidade e resultado.",
-      author: "Traluz",
+      author: "Dr. Renato",
       avatar: "💡",
     },
     {
